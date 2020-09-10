@@ -18,3 +18,8 @@ var (
 	One = big.NewInt(1)
 	Two = big.NewInt(2)
 )
+
+// Config default values.
+var (
+	LocalRPCURL = "http://127.0.0.1:8545"
+)
