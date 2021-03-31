@@ -38,8 +38,7 @@ func MustGetEthAccount(keyHex string) *bind.TransactOpts {
 	return bind.NewKeyedTransactor(key)
 }
 
-// MustGetETHAccountByEncryptFile returns an ethereum account by keystore file path path.
-func MustGetETHAccountByEncryptFile(keypath string, pw string) *bind.TransactOpts {
+func MustGetPrivateKeyByEncryptFile(keypath string, pw string) *keystore.Key {
 	b, err := ioutil.ReadFile(keypath)
 	if err != nil {
 		panic(err)
@@ -48,6 +47,13 @@ func MustGetETHAccountByEncryptFile(keypath string, pw string) *bind.TransactOpt
 	if err != nil {
 		panic(err)
 	}
+
+	return k
+}
+
+// MustGetETHAccountByEncryptFile returns an ethereum account by keystore file path path.
+func MustGetETHAccountByEncryptFile(keypath string, pw string) *bind.TransactOpts {
+	k := MustGetPrivateKeyByEncryptFile(keypath, pw)
 
 	return bind.NewKeyedTransactor(k.PrivateKey)
 }
